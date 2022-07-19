@@ -1,23 +1,53 @@
 import React from 'react'
 import styled from 'styled-components'
+import Pngwing2 from '../img/pngwing2.png'
 
 const Main = styled.div`
-width: 20vw;
-height: 25vh;
+display: flex;
+width: 440px;
+height: 263px;
+/* margin-left: 40px;
+margin-top: 294px; */
 border: 1px solid black;
-margin: 20px;
+flex-direction: column;
 `
 
+const TopContainer = styled.div`
+display: flex;
+width: 50%;
+/* margin-left: 40px;
+margin-top: 294px; */
+border: 1px solid black;
+flex-direction: column;
+`
+const BottomDiv = styled.div`
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+padding: 0px;
+gap: 135px;
+`
 const Image = styled.img`
 width: 50%;
 `
-export default function PokeCard({name, url}) {
+
+const Image2 = styled.img`
+width: 210.73px;
+height: 210.73px;
+position: absolute;
+
+`
+export default function PokeCard({ name, image }) {
+
   return (
     <Main>
-        <h2>Nome: {name}</h2>
-        <h2>URL: {url}</h2>
-        <Image src='' />
-
+      <TopContainer>
+        <h2>{name}</h2>
+        <Image src={image} />
+      </TopContainer>
+      <BottomDiv></BottomDiv>
+      <Image2 src={Pngwing2} />
     </Main>
   )
 }
