@@ -1,7 +1,8 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { ContextoPokemon } from '../context'
 import Title from '../img/header.png'
+import { useNavigate } from 'react-router-dom'
+import { goToDetailsPage, goToHomePage, goToPokedexPage } from '../routes/coordinator'
 
 const Main = styled.div`
 display: grid;
@@ -16,6 +17,9 @@ gap: 450px;
 
 const ImageHeader = styled.img`
 width: 70%;
+:hover { 
+  cursor: pointer;
+}
 `
 
 const PokedexButton = styled.button`
@@ -32,14 +36,21 @@ font-family: Poppins;
 font-weight: 700;
 font-size: 24px;
 color: white;
+opacity: 0.9;
+:hover { 
+  cursor: pointer;
+  background: #33A4F5;
+  opacity: 1;
+}
 `
 
 export default function Header() {
+  const navigate = useNavigate()
   return (
     <Main>
       <div></div>
-      <ImageHeader src={Title} />
-      <PokedexButton>Pokedéx</PokedexButton>
+      <ImageHeader src={Title} onClick={() => goToHomePage(navigate)}/>
+      <PokedexButton onClick={() => goToPokedexPage(navigate)}>Pokedéx</PokedexButton>
     </Main>
   )
 }
