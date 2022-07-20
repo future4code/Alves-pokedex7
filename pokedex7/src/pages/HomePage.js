@@ -31,6 +31,9 @@ export default function HomePage() {
                 image={item.sprites.front_default}
                 id={item.id}
                 types={item.types.map((type) => type.type.name)}
+                imageBack={item.sprites.back_default}
+                stats={item.stats}
+                moves={item.moves}
                 />
             })}
         </Main>
