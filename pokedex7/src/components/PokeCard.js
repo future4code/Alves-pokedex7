@@ -1,7 +1,9 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, { useContext, useEffect, useState } from 'react'
+import styled, { css } from 'styled-components'
 import Pngwing2 from '../img/pngwing2.png'
 import TypeGrass from '../img/grass.png'
+import { GlobalContext } from './global/GlobalContext'
+
 
 const Main = styled.div`
 display: flex;
@@ -16,8 +18,26 @@ display: flex;
 width: 440px;
 height: 210px;
 flex-direction: column;
-background-color: #729F92;
 border-radius: 12px;
+${({ color }) => {
+    switch (color) {
+      case 'grass':
+        return css`
+        background-color: #729F92;`
+      case 'water':
+        return css`
+        background-color: #71C3FF;`
+      case 'fire':
+        return css`
+        background-color: #EAAB7D;`
+      case 'bug':
+        return css`
+        background-color: #76A866;`
+      case 'normal':
+        return css`
+        background-color: #BF9762;`
+    }
+  }}    
 `
 
 const TopContainer = styled.div`
@@ -27,6 +47,7 @@ height: 80%;
 justify-content: space-between;
 align-items:center;
 `
+
 const TopDiv = styled.div`
 display: flex;
 flex-direction: column;
@@ -70,6 +91,11 @@ margin-left: 275px;
 font-weight: 700;
 font-size: 1rem;
 font-family: 'Poppins';
+opacity: 0.9;
+:hover { 
+  cursor: pointer;
+  opacity: 1;
+}
 `
 const ButtonDetalhes = styled.button`
 width: 74px;
@@ -83,6 +109,30 @@ border: 0px;
 margin-left: 20px;
 color: white;
 font-family: 'Poppins';
+opacity: 0.9;
+:hover { 
+  cursor: pointer;
+  opacity: 1;
+}
+${({ color }) => {
+    switch (color) {
+      case 'grass':
+        return css`
+        background-color: #729F92;`
+      case 'water':
+        return css`
+        background-color: #71C3FF;`
+      case 'fire':
+        return css`
+        background-color: #EAAB7D;`
+      case 'bug':
+        return css`
+        background-color: #76A866;`
+      case 'normal':
+        return css`
+        background-color: #BF9762;`
+    }
+  }}   
 `
 
 const IdText = styled.p`
@@ -122,22 +172,42 @@ const TypeText = styled.p`
 margin: 0;
 font-size: 0.8rem;
 `
-export default function PokeCard({ name, image, id }) {
+export default function PokeCard({ name, image, id, types }) {
+  const [color, setColor] = useState('')
+
+  const { onCapture } = useContext(GlobalContext)
+
+  useEffect(() => {
+    const type = types[0]
+    if (type === 'grass') {
+      setColor('grass')
+    } else if (type === 'water') {
+      setColor('water')
+    } else if (type === 'fire') {
+      setColor('fire')
+    } else if (type === 'bug') {
+      setColor('bug')
+    } else if (type === 'normal') {
+      setColor('normal')
+    }
+    console.log(type, color)
+  })
+
 
   return (
     <Main>
-      <Container>
+      <Container color={color}>
         <TopContainer>
           <TopDiv>
             <IdText>#{id}</IdText>
             <NameText>{name}</NameText>
             <TypesDiv>
               <TypeContainer>
-                <TypeImage src={TypeGrass}/>
+                <TypeImage src={TypeGrass} />
                 <TypeText>Grass</TypeText>
               </TypeContainer>
               <TypeContainer>
-                <TypeImage src={TypeGrass}/>
+                <TypeImage src={TypeGrass} />
                 <TypeText>Grass</TypeText>
               </TypeContainer>
             </TypesDiv>
@@ -145,8 +215,8 @@ export default function PokeCard({ name, image, id }) {
           <Image src={image} />
         </TopContainer>
         <BottomDiv>
-          <ButtonDetalhes>Details</ButtonDetalhes>
-          <ButtonCapturar>Capturar!</ButtonCapturar>
+          <ButtonDetalhes color={color}>Details</ButtonDetalhes>
+          <ButtonCapturar onClick={() => onCapture(name, image, id, types)}>Capturar!</ButtonCapturar>
         </BottomDiv>
       </Container>
     </Main>

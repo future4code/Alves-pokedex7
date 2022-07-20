@@ -1,8 +1,7 @@
-import axios from 'axios'
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import styled from 'styled-components'
+import { GlobalContext } from '../components/global/GlobalContext'
 import PokeCard from '../components/PokeCard'
-import { ContextoPokemon } from '../context'
 
 const Main = styled.div`
 display: grid;
@@ -15,29 +14,9 @@ padding-bottom: 100px;
     grid-template-columns:auto;
     gap: 0%;
 }
-
 `
 export default function HomePage() {
-    const [infos, setInfos] = useState([])
-    const [resp, setResp] = useState([])
-    const [isLoading, setIsLoading] = useState(true)
-    const getPokemons = async () => {
-        const resp = await axios.get('https://pokeapi.co/api/v2/pokemon/?limit=20')
-        const newArr = []
-        for(let i =0; i< resp.data.results.length; i++) {
-            if (i == 0 && infos.length != 0){
-                return;
-            }
-            const tempResp = await axios.get(resp.data.results[i].url)
-            newArr.push(tempResp.data)
-            console.log(tempResp.data)
-        }
-        await setInfos(newArr)
-        await setIsLoading(false)
-        console.log('acabamos')
-    }
-
-
+    const {infos, setInfos, getPokemons, isLoading, setIsLoading} = useContext(GlobalContext)
     useEffect(() => {
         getPokemons()
     }, [])
@@ -50,6 +29,7 @@ export default function HomePage() {
                 name={item.name.toUpperCase()} 
                 image={item.sprites.front_default}
                 id={item.id}
+                types={item.types.map((type) => type.type.name)}
                 />
             })}
         </Main>
