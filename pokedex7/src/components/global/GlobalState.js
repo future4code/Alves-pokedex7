@@ -25,27 +25,43 @@ export default function GlobalState(props) {
 
     const [pokedex, setPokedex] = useState([])
 
-    const onCapture = (name, image, id, types) => {
-        const infos = {
+    const onCapture = (name, image, id, types, captured) => {
+        const ids = pokedex.map((item) => item.id)
+        const body = {
             name: name,
             image: image,
             id: id,
-            type: types
+            type: types,
+            captured: captured
         }
-        setPokedex([...pokedex, infos])
-        console.log(types)
+        if (ids.includes(body.id) || pokedex.length >= 6) {
+            return
+        }
+        const newPokemons = infos.filter((item) => {
+            return item.id != id
+        })
+        setPokedex([...pokedex, body])
+        setInfos(newPokemons)
     }
 
-    const Provider = GlobalContext.Provider;
-
-    const values = {
-        infos,
-        setInfos,
-        getPokemons,
-        isLoading,
-        setIsLoading,
-        onCapture,
-        pokedex
+    const onDelete = (id) => {
+        const newPokedex = pokedex.filter((item) => {
+            return item.id != id
+        })
+        setPokedex(newPokedex)
     }
-    return (<Provider value={values}>{props.children}</Provider>)
+
+const Provider = GlobalContext.Provider;
+
+const values = {
+    infos,
+    setInfos,
+    getPokemons,
+    isLoading,
+    setIsLoading,
+    onCapture,
+    pokedex,
+    onDelete
+}
+return (<Provider value={values}>{props.children}</Provider>)
 }
