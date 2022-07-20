@@ -9,11 +9,13 @@ import PokedexPage from './pages/PokedexPage';
 import DetailsPage from './pages/DetailsPage';
 import Header from './components/Header';
 import {ContextoPokemon} from './context'
+import GlobalStyle from './globalStyles'
 
 function App() {
   const pokemon = 'pikachu'
   return (
     <div>
+      <GlobalStyle />
       <Header></Header>
       <BrowserRouter>
         <Routes>
