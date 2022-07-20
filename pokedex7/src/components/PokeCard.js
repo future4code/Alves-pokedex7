@@ -10,6 +10,7 @@ import TypePoison from '../img/poison.png'
 import { GlobalContext } from './global/GlobalContext'
 import { useNavigate } from 'react-router-dom'
 import { goToDetailsPage } from '../routes/coordinator'
+import { BASE_URL } from '../constants/urls'
 
 
 const Main = styled.div`
@@ -271,10 +272,10 @@ margin: 0;
 font-size: 0.8rem;
 font-weight:700;
 `
-export default function PokeCard({ name, image, id, types, captured }) {
+export default function PokeCard({ name, image, id, types, captured, moves, imageBack, stats }) {
   const [color, setColor] = useState('')
   const [color2, setColor2] = useState('')
-  const { onCapture, onDelete } = useContext(GlobalContext)
+  const { onCapture, onDelete, onDetails, details, getId } = useContext(GlobalContext)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -313,6 +314,8 @@ export default function PokeCard({ name, image, id, types, captured }) {
     }
     console.log(type)
   })
+
+
 
 
   return (
@@ -363,7 +366,7 @@ export default function PokeCard({ name, image, id, types, captured }) {
           <Image src={image} />
         </TopContainer>
         <BottomDiv>
-          <ButtonDetalhes color={color} onClick={() => goToDetailsPage(navigate)}>Details</ButtonDetalhes>
+          <ButtonDetalhes color={color} onClick={() => getId(id)}>Details</ButtonDetalhes>
           {captured ? <ButtonExcluir onClick={() => onDelete(id)}>Soltar</ButtonExcluir> :
             <ButtonCapturar onClick={() => onCapture(name, image, id, types, true)}>Capturar!</ButtonCapturar>}
         </BottomDiv>
