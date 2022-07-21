@@ -383,7 +383,7 @@ margin: 0;
 font-size: 0.8rem;
 font-weight:700;
 `
-export default function PokeCard({ name, image, id, types, captured, moves, imageBack, stats }) {
+export default function PokeCard({ name, image, id, types, captured, moves, imageBack, imagePixel, stats }) {
   const [color, setColor] = useState('')
   const [color2, setColor2] = useState('')
   const { onCapture, onDelete, getDetails, details, } = useContext(GlobalContext)
@@ -554,7 +554,7 @@ export default function PokeCard({ name, image, id, types, captured, moves, imag
           <Image src={image} />
         </TopContainer>
         <BottomDiv>
-          <ButtonDetalhes to="/details" color={color} onClick={() => getDetails(id, name, image, imageBack, stats, moves, types)}>Details</ButtonDetalhes>
+          <ButtonDetalhes to="/details" color={color} onClick={() => getDetails(id, name, image, imageBack, imagePixel, stats, moves, types)}>Details</ButtonDetalhes>
           {captured ? <ButtonExcluir onClick={() => onDelete(name, image, id, types)}>Soltar</ButtonExcluir> :
             <ButtonCapturar onClick={() => onCapture(name, image, id, types, true)}>Capturar!</ButtonCapturar>}
         </BottomDiv>

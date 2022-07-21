@@ -38,6 +38,7 @@ export default function HomePage() {
                             imageBack={item.sprites.back_default}
                             stats={item.stats}
                             moves={item.moves}
+                            imagePixel={item.sprites.front_default}
                         />
                     })}
 
