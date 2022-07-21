@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Title from '../img/header.png'
 import { useNavigate } from 'react-router-dom'
 import { goToDetailsPage, goToHomePage, goToPokedexPage } from '../routes/coordinator'
+import { Link } from 'react-router-dom'
 
 const Main = styled.div`
 display: grid;
@@ -30,7 +31,7 @@ justify-self: center;
 }
 `
 
-const PokedexButton = styled.button`
+const PokedexButton = styled.div`
 width: 250px;
 height: 60px;
 justify-self: center;

@@ -1,17 +1,19 @@
 import React, { useState } from 'react'
 import { BASE_URL } from '../../constants/urls'
-// import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { GlobalContext } from './GlobalContext'
-// import { goToDetailsPage } from '../../routes/coordinator'
+import { filter } from '@chakra-ui/react'
+
 
 export default function GlobalState(props) {
     const [infos, setInfos] = useState([])
     const [isLoading, setIsLoading] = useState(true)
-    // const navigate = useNavigate()
+    const [nextUrl, setNextUrl] = useState("https://pokeapi.co/api/v2/pokemon?offset=20&limit=20")
+    const [currentUrl, setCurrentUrl] = useState('https://pokeapi.co/api/v2/pokemon')
+    const [previousUrl, setPreviousUrl] = useState(null)
 
-    const getPokemons = async () => {
-        const resp = await axios.get('https://pokeapi.co/api/v2/pokemon/?limit=20')
+    const getPokemons = async (url) => {
+        const resp = await axios.get(url)
         const newArr = []
         for (let i = 0; i < resp.data.results.length; i++) {
             if (i == 0 && infos.length != 0) {
@@ -19,12 +21,51 @@ export default function GlobalState(props) {
             }
             const tempResp = await axios.get(resp.data.results[i].url)
             newArr.push(tempResp.data)
-            console.log(tempResp.data)
         }
         await setInfos(newArr)
         await setIsLoading(false)
-        console.log('acabamos')
     }
+
+    const nextPage = async (url) => {
+        const resp = await axios.get(url)
+        const idsPokedex = pokedex.map((item) => {
+            return item.id
+        })
+        const newArr = []
+        setCurrentUrl(nextUrl)
+        setNextUrl(resp.data.next)
+        setPreviousUrl(resp.data.previous)
+        for (let i = 0; i < resp.data.results.length; i++) {
+            const tempResp = await axios.get(resp.data.results[i].url)
+            newArr.push(tempResp.data)
+        }
+        const filterResp = newArr.filter((item) => {
+            return !idsPokedex.includes(item.id)
+        })
+        await setInfos(filterResp)
+        await setIsLoading(false)
+    }
+
+    const previousPage = async (url) => {
+        const resp = await axios.get(url)
+        const idsPokedex = pokedex.map((item) => {
+            return item.id
+        })
+        const newArr = []
+        setCurrentUrl(previousUrl)
+        setNextUrl(resp.data.next)
+        setPreviousUrl(resp.data.previous)
+        for (let i = 0; i < resp.data.results.length; i++) {
+            const tempResp = await axios.get(resp.data.results[i].url)
+            newArr.push(tempResp.data)
+        }
+        const filterResp = newArr.filter((item) => {
+            return !idsPokedex.includes(item.id)
+        })
+        await setInfos(filterResp)
+        await setIsLoading(false)
+    }
+
 
     const [pokedex, setPokedex] = useState([])
 
@@ -45,45 +86,51 @@ export default function GlobalState(props) {
         })
         setPokedex([...pokedex, body])
         setInfos(newPokemons)
+
     }
 
     const onDelete = (id) => {
         const newPokedex = pokedex.filter((item) => {
             return item.id != id
         })
+        console.log(newPokedex, infos)
         setPokedex(newPokedex)
     }
 
- const [details, setDetails] = useState({})
-    const getDetails = (id,name,imgfront,imgback,stats,moves,types) => {
+    const [details, setDetails] = useState({})
+    const getDetails = (id, name, imgfront, imgback, stats, moves, types) => {
         const body = {
-         id:id,
-         name:name,
-         imgback:imgback,
-         imgfront:imgfront,
-         stats:stats,
-         moves:moves,
-         types:types,
-        } 
+            id: id,
+            name: name,
+            imgback: imgback,
+            imgfront: imgfront,
+            stats: stats,
+            moves: moves,
+            types: types,
+        }
         setDetails(body)
     }
 
-const Provider = GlobalContext.Provider;
+    const Provider = GlobalContext.Provider;
 
 
-const values = {
-    infos,
-    setInfos,
-    getPokemons,
-    isLoading,
-    setIsLoading,
-    onCapture,
-    pokedex,
-    onDelete,
-    getDetails,
-    details,
-    
-   
-}
-return (<Provider value={values}>{props.children}</Provider>)
+    const values = {
+        infos,
+        setInfos,
+        getPokemons,
+        isLoading,
+        setIsLoading,
+        onCapture,
+        pokedex,
+        onDelete,
+        getDetails,
+        details,
+        nextUrl,
+        nextPage,
+        previousPage,
+        previousUrl,
+        currentUrl,
+        setCurrentUrl
+    }
+    return (<Provider value={values}>{props.children}</Provider>)
 }

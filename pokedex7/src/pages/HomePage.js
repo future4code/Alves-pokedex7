@@ -2,8 +2,9 @@ import React, { useEffect, useContext, useState } from 'react'
 import styled from 'styled-components'
 import { GlobalContext } from '../components/global/GlobalContext'
 import PokeCard from '../components/PokeCard'
+import Footer from '../components/Footer'
 
-const Main = styled.div`
+const Container = styled.div`
 display: grid;
 grid-template-columns: auto auto auto auto;
 grid-template-rows: 250px 250px 250px 250px;
@@ -16,27 +17,35 @@ padding-bottom: 100px;
     gap: 0.1%;
 }
 `
+
 export default function HomePage() {
-    const {infos, setInfos, getPokemons, isLoading, setIsLoading} = useContext(GlobalContext)
+    const { infos, getPokemons, isLoading, currentUrl} = useContext(GlobalContext)
+    
     useEffect(() => {
-        getPokemons()
-    }, [])
+        getPokemons(currentUrl)
+    }, [isLoading])
 
     return (
-        <Main>
-            {isLoading ? <h1>Loading</h1> :
-            infos && infos.map((item) => {
-                return <PokeCard 
-                name={item.name.toUpperCase()} 
-                image={item.sprites.front_default}
-                id={item.id}
-                types={item.types.map((type) => type.type.name)}
-                imageBack={item.sprites.back_default}
-                stats={item.stats}
-                moves={item.moves}
-                />
-            })}
-        </Main>
+        <div>
+            <Container>
+                {isLoading ? <h1>Loading</h1> :
+                    infos && infos.map((item) => {
+                        return <PokeCard
+                            name={item.name.toUpperCase()}
+                            image={item.sprites.other["official-artwork"].front_default}
+                            id={item.id}
+                            types={item.types.map((type) => type.type.name)}
+                            imageBack={item.sprites.back_default}
+                            stats={item.stats}
+                            moves={item.moves}
+                        />
+                    })}
+
+            </Container>
+            <div>
+                <Footer></Footer>
+            </div>
+        </div>
     )
 }
 
