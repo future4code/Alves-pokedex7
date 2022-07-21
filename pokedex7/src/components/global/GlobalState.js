@@ -21,9 +21,10 @@ export default function GlobalState(props) {
             }
             const tempResp = await axios.get(resp.data.results[i].url)
             newArr.push(tempResp.data)
-        }
+        } 
         await setInfos(newArr)
         await setIsLoading(false)
+        
     }
 
     const nextPage = async (url) => {
@@ -98,18 +99,20 @@ export default function GlobalState(props) {
     }
 
     const [details, setDetails] = useState({})
-    const getDetails = (id, name, imgfront, imgback, stats, moves, types) => {
+    const getDetails = (id, name, imgfront, imgback, imgpixel, stats, moves, types) => {
         const body = {
             id: id,
             name: name,
             imgback: imgback,
             imgfront: imgfront,
+            imgpixel: imgpixel,
             stats: stats,
             moves: moves,
             types: types,
         }
         setDetails(body)
     }
+    
 
     const Provider = GlobalContext.Provider;
 
