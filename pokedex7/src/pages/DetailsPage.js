@@ -4,20 +4,21 @@ import { GlobalContext } from "../components/global/GlobalContext";
 import axios from 'axios'
 
 const Main = styled.div`
-color: white;
+color: black;
 `;
 const Main2 = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
   flex-direction: column;
+  
 `;
 const CardDetalhe = styled.div`
   display: flex;
   align-items: center;
   width: 1389.14px;
   height: 663px;
-  background-color: black;
+  background-color: #729F92;
   border-radius: 12px;
 `;
 const CardFotos = styled.div`
@@ -31,6 +32,8 @@ const FotoFrente = styled.div`
 width: 282px;
 height: 282px;
 margin-left: 44px;
+
+
 
 background-color: white;
 border: 1px solid black;
@@ -65,24 +68,10 @@ border-radius: 8px;
 
 
 export default function DetailsPage() {
-  const { id } = useContext(GlobalContext)
-  const [details, setDetails] = useState([])
-  const onDetails = (id) => {
-    console.log(id)  
-    const temp = []
-    axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
-    .then((res) => {
-      temp.push(res.data)
-      setDetails(temp)
-      console.log(res.data, details, temp)
-      // goToDetailsPage(navigate)
-    } )
-      
-  }
+  const { details } = useContext(GlobalContext)
 
-  useEffect(() => {
-    onDetails(id)
-  })
+
+
 
   console.log(details)
   return (
@@ -91,13 +80,42 @@ export default function DetailsPage() {
       <Main2>
         <CardDetalhe>
           <CardFotos>
-          <FotoFrente>
-            {details}
-          </FotoFrente>
-          <FotoTras></FotoTras>
+            <FotoFrente>
+              <h2>{details.name}</h2>
+              <h2>#{details.id}</h2>
+              <img src={details.imgfront}></img>
+            </FotoFrente>
+            <FotoTras>
+              <img src={details.imgback}></img>
+            </FotoTras>
           </CardFotos>
-          <Status></Status>
-          <CardMoves></CardMoves>
+          <Status>
+            <h2>base stats</h2>
+            {details &&
+              details.stats.map((stat) => {
+                return (
+                  <p key={stat.stat.name}>
+                    <strong>{stat.stat.name}: </strong>
+                    {stat.base_stat}
+                  </p>
+                );
+              })}
+          </Status>
+          <CardMoves>
+            <h2>Moves</h2>
+            {details &&
+              details.moves.map((move, index) => {
+                return (
+                  index < 5 && (
+                    <p key={move.move.name}>
+                      <ul>
+                        <li>{move.move.name}</li>
+                      </ul>
+                    </p>
+                  )
+                );
+              })}
+          </CardMoves>
         </CardDetalhe>
       </Main2>
     </Main>
