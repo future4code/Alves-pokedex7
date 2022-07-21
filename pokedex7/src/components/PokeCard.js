@@ -7,6 +7,17 @@ import TypeFire from '../img/fire.png'
 import TypeNormal from '../img/normal.png'
 import TypeFlying from '../img/flying.png'
 import TypePoison from '../img/poison.png'
+import TypeSteel from '../img/steel.png'
+import TypeRock from '../img/rock.png'
+import TypePsychic from '../img/psychic.png'
+import TypeIce from '../img/ice.png'
+import TypeGround from '../img/ground.png'
+import TypeGhost from '../img/ghost.png'
+import TypeFighting from '../img/fighting.png'
+import TypeDark from '../img/dark.png'
+import TypeDragon from '../img/dragon.png'
+import TypeFairy from '../img/fairy.png'
+import TypeElectric from '../img/electric.png'
 import { GlobalContext } from './global/GlobalContext'
 import { useNavigate } from 'react-router-dom'
 import { goToDetailsPage } from '../routes/coordinator'
@@ -56,6 +67,39 @@ ${({ color }) => {
       case 'flying':
         return css`
         background-color: #95D1FC;`
+      case 'dark':
+        return css`
+        background-color: #958DA5;`
+      case 'ghost':
+        return css`
+        background-color: #A3B7F0;`
+      case 'steel':
+        return css`
+        background-color: #97C5D6;`
+      case 'electric':
+        return css`
+        background-color: #F1E4A8;`
+      case 'fighting':
+        return css`
+        background-color: #C78094;`
+      case 'fairy':
+        return css`
+        background-color: #EBABE6;`
+      case 'psychic':
+        return css`
+        background-color: #E2B1B2;`
+      case 'ice':
+        return css`
+        background-color: #B9E7E0;`
+      case 'dragon':
+        return css`
+        background-color: #489AE1;`
+      case 'rock':
+        return css`
+        background-color: #E2DAC3;`
+      case 'ground':
+        return css`
+        background-color: #F1BA9E;`
     }
   }}    
   @media (min-width: 365px) and (max-width: 763px){ 
@@ -96,8 +140,8 @@ padding: 0px;
 gap: 135px;
 `
 const Image = styled.img`
-width: 200px;
-height: 200px;
+width: 175px;
+height: 175px;
 margin-bottom: 105px;
 @media (min-width: 365px) and (max-width: 763px){ 
   margin-bottom: 0;
@@ -165,7 +209,7 @@ opacity: 0.8;
 }
 `
 
-const ButtonDetalhes = styled.button`
+const ButtonDetalhes = styled(Link)`
 width: 74px;
 height: 24px;
 font-weight: 700;
@@ -205,6 +249,39 @@ ${({ color }) => {
       case 'flying':
         return css`
         background-color: #95D1FC;`
+      case 'dark':
+        return css`
+        background-color: #958DA5;`
+      case 'ghost':
+        return css`
+        background-color: #A3B7F0;`
+      case 'steel':
+        return css`
+        background-color: #97C5D6;`
+      case 'electric':
+        return css`
+        background-color: #F1E4A8;`
+      case 'fighting':
+        return css`
+        background-color: #C78094;`
+      case 'fairy':
+        return css`
+        background-color: #EBABE6;`
+      case 'psychic':
+        return css`
+        background-color: #E2B1B2;`
+      case 'ice':
+        return css`
+        background-color: #B9E7E0;`
+      case 'dragon':
+        return css`
+        background-color: #489AE1;`
+      case 'rock':
+        return css`
+        background-color: #E2DAC3;`
+      case 'ground':
+        return css`
+        background-color: #F1BA9E;`
     }
   }}    
 `
@@ -265,6 +342,39 @@ ${({ color }) => {
       case 'flying':
         return css`
         background-color: #6892B0;`
+      case 'dark':
+        return css`
+        background-color: #5a5366;`
+      case 'ghost':
+        return css`
+        background-color: #5269AC;`
+      case 'steel':
+        return css`
+        background-color: #5A8EA1;`
+      case 'electric':
+        return css`
+        background-color: #F3D23B;`
+      case 'fighting':
+        return css`
+        background-color: #CE4069;`
+      case 'fairy':
+        return css`
+        background-color: #EC8FE6;`
+      case 'psychic':
+        return css`
+        background-color: #F97176;`
+      case 'ice':
+        return css`
+        background-color: #74CEC0;`
+      case 'dragon':
+        return css`
+        background-color: #096DC4;`
+      case 'rock':
+        return css`
+        background-color: #C7B78B;`
+      case 'ground':
+        return css`
+        background-color: #D97746;`
     }
   }}  
 `
@@ -296,7 +406,30 @@ export default function PokeCard({ name, image, id, types, captured, moves, imag
       setColor('poison')
     } else if (type === 'flying') {
       setColor('flying')
+    } else if (type === 'dark') {
+      setColor('dark')
+    } else if (type === 'dragon') {
+      setColor('dragon')
+    } else if (type === 'electric') {
+      setColor('electric')
+    } else if (type === 'fairy') {
+      setColor('fairy')
+    } else if (type === 'fighting') {
+      setColor('fighting')
+    } else if (type === 'ghost') {
+      setColor('ghost')
+    } else if (type === 'ground') {
+      setColor('ground')
+    } else if (type === 'ice') {
+      setColor('ice')
+    } else if (type === 'psychic') {
+      setColor('psychic')
+    } else if (type === 'rock') {
+      setColor('rock')
+    } else if (type === 'steel') {
+      setColor('steel')
     }
+
 
     if (type2 === 'grass') {
       setColor2('grass')
@@ -312,8 +445,29 @@ export default function PokeCard({ name, image, id, types, captured, moves, imag
       setColor2('poison')
     } else if (type2 === 'flying') {
       setColor2('flying')
+    } else if (type2 === 'dark') {
+      setColor2('dark')
+    } else if (type2 === 'dragon') {
+      setColor2('dragon')
+    } else if (type2 === 'electric') {
+      setColor2('electric')
+    } else if (type2 === 'fairy') {
+      setColor2('fairy')
+    } else if (type2 === 'fighting') {
+      setColor2('fighting')
+    } else if (type2 === 'ghost') {
+      setColor2('ghost')
+    } else if (type2 === 'ground') {
+      setColor2('ground')
+    } else if (type2 === 'ice') {
+      setColor2('ice')
+    } else if (type2 === 'psychic') {
+      setColor2('psychic')
+    } else if (type2 === 'rock') {
+      setColor2('rock')
+    } else if (type2 === 'steel') {
+      setColor2('steel')
     }
-    console.log(type)
   })
 
 
@@ -336,6 +490,17 @@ export default function PokeCard({ name, image, id, types, captured, moves, imag
                   {(color === 'bug') ? <TypeImage src={TypeBug} /> : null}
                   {(color === 'poison') ? <TypeImage src={TypePoison} /> : null}
                   {(color === 'flying') ? <TypeImage src={TypeFlying} /> : null}
+                  {(color === 'dark') ? <TypeImage src={TypeDark} /> : null}
+                  {(color === 'dragon') ? <TypeImage src={TypeDragon} /> : null}
+                  {(color === 'electric') ? <TypeImage src={TypeElectric} /> : null}
+                  {(color === 'fairy') ? <TypeImage src={TypeFairy} /> : null}
+                  {(color === 'fighting') ? <TypeImage src={TypeFighting} /> : null}
+                  {(color === 'ghost') ? <TypeImage src={TypeGhost} /> : null}
+                  {(color === 'ground') ? <TypeImage src={TypeGround} /> : null}
+                  {(color === 'ice') ? <TypeImage src={TypeIce} /> : null}
+                  {(color === 'psychic') ? <TypeImage src={TypePsychic} /> : null}
+                  {(color === 'rock') ? <TypeImage src={TypeRock} /> : null}
+                  {(color === 'steel') ? <TypeImage src={TypeSteel} /> : null}
                   <TypeText>{types[0].toUpperCase()}</TypeText>
                 </TypeContainer>
               </TypesDiv>
@@ -349,6 +514,17 @@ export default function PokeCard({ name, image, id, types, captured, moves, imag
                   {(color === 'bug') ? <TypeImage src={TypeBug} /> : null}
                   {(color === 'poison') ? <TypeImage src={TypePoison} /> : null}
                   {(color === 'flying') ? <TypeImage src={TypeFlying} /> : null}
+                  {(color === 'dark') ? <TypeImage src={TypeDark} /> : null}
+                  {(color === 'dragon') ? <TypeImage src={TypeDragon} /> : null}
+                  {(color === 'electric') ? <TypeImage src={TypeElectric} /> : null}
+                  {(color === 'fairy') ? <TypeImage src={TypeFairy} /> : null}
+                  {(color === 'fighting') ? <TypeImage src={TypeFighting} /> : null}
+                  {(color === 'ghost') ? <TypeImage src={TypeGhost} /> : null}
+                  {(color === 'ground') ? <TypeImage src={TypeGround} /> : null}
+                  {(color === 'ice') ? <TypeImage src={TypeIce} /> : null}
+                  {(color === 'psychic') ? <TypeImage src={TypePsychic} /> : null}
+                  {(color === 'rock') ? <TypeImage src={TypeRock} /> : null}
+                  {(color === 'steel') ? <TypeImage src={TypeSteel} /> : null}
                   <TypeText>{types[0].toUpperCase()}</TypeText>
                 </TypeContainer>
                 <TypeContainer color={color2}>
@@ -359,6 +535,17 @@ export default function PokeCard({ name, image, id, types, captured, moves, imag
                   {(color2 === 'bug') ? <TypeImage src={TypeBug} /> : null}
                   {(color2 === 'poison') ? <TypeImage src={TypePoison} /> : null}
                   {(color2 === 'flying') ? <TypeImage src={TypeFlying} /> : null}
+                  {(color2 === 'dark') ? <TypeImage src={TypeDark} /> : null}
+                  {(color2 === 'dragon') ? <TypeImage src={TypeDragon} /> : null}
+                  {(color2 === 'electric') ? <TypeImage src={TypeElectric} /> : null}
+                  {(color2 === 'fairy') ? <TypeImage src={TypeFairy} /> : null}
+                  {(color2 === 'fighting') ? <TypeImage src={TypeFighting} /> : null}
+                  {(color2 === 'ghost') ? <TypeImage src={TypeGhost} /> : null}
+                  {(color2 === 'ground') ? <TypeImage src={TypeGround} /> : null}
+                  {(color2 === 'ice') ? <TypeImage src={TypeIce} /> : null}
+                  {(color2 === 'psychic') ? <TypeImage src={TypePsychic} /> : null}
+                  {(color2 === 'rock') ? <TypeImage src={TypeRock} /> : null}
+                  {(color2 === 'steel') ? <TypeImage src={TypeSteel} /> : null}
                   <TypeText>{types[1].toUpperCase()}</TypeText>
                 </TypeContainer>
               </TypesDiv>
@@ -367,8 +554,8 @@ export default function PokeCard({ name, image, id, types, captured, moves, imag
           <Image src={image} />
         </TopContainer>
         <BottomDiv>
-          <Link to = "/details" color={color} onClick={() => getDetails(id,name,image,imageBack,stats,moves,types)}>Details</Link>
-          {captured ? <ButtonExcluir onClick={() => onDelete(id)}>Soltar</ButtonExcluir> :
+          <ButtonDetalhes to="/details" color={color} onClick={() => getDetails(id, name, image, imageBack, stats, moves, types)}>Details</ButtonDetalhes>
+          {captured ? <ButtonExcluir onClick={() => onDelete(name, image, id, types)}>Soltar</ButtonExcluir> :
             <ButtonCapturar onClick={() => onCapture(name, image, id, types, true)}>Capturar!</ButtonCapturar>}
         </BottomDiv>
       </Container>
