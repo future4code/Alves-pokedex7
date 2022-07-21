@@ -54,9 +54,18 @@ export default function GlobalState(props) {
         setPokedex(newPokedex)
     }
 
- const [id, setId] = useState('')
-    const getId = (id) => {
-        setId(id)
+ const [details, setDetails] = useState({})
+    const getDetails = (id,name,imgfront,imgback,stats,moves,types) => {
+        const body = {
+         id:id,
+         name:name,
+         imgback:imgback,
+         imgfront:imgfront,
+         stats:stats,
+         moves:moves,
+         types:types,
+        } 
+        setDetails(body)
     }
 
 const Provider = GlobalContext.Provider;
@@ -71,10 +80,10 @@ const values = {
     onCapture,
     pokedex,
     onDelete,
-    // onDetails,
-    // details,
-    id,
-    getId,
+    getDetails,
+    details,
+    
+   
 }
 return (<Provider value={values}>{props.children}</Provider>)
 }
