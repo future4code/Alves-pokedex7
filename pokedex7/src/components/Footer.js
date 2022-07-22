@@ -65,8 +65,8 @@ export default function Footer() {
     return (
         <Main>
             <Container>
-                <PreviousButton onClick={() => previousPage(previousUrl)}>Voltar</PreviousButton>
-                <NextButton onClick={() => nextPage(nextUrl)}>Próxima</NextButton>
+                <PreviousButton onClick={() => previousPage(previousUrl)}>Previous</PreviousButton>
+                <NextButton onClick={() => nextPage(nextUrl)}>Next</NextButton>
             </Container>
         </Main>
     )

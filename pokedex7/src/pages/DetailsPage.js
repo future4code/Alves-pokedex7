@@ -72,7 +72,7 @@ h2 {
   padding: 10px 0 0 40px
 }
 progress {
-  padding: 10px 0 0 40px
+  
 }
 `;
 
@@ -121,7 +121,13 @@ const FotoPoke = styled.div`
   margin: -110px 35px 525px 2084px;
 `;
 
+const StatsPoke = styled.div`
+  font-size: 12px;
+  padding: 10px 0 0 40px;
+`;
 
+const PokeType = styled.div`
+`;
 
 export default function DetailsPage() {
   const { details } = useContext(GlobalContext)
@@ -157,13 +163,13 @@ export default function DetailsPage() {
             {details &&
               details.stats.map((stat) => {
                 return (
-                  <div>
+                  <StatsPoke>
                   <p key={stat.stat.name}>
                     <strong>{stat.stat.name}: </strong>
                     {stat.base_stat}
                   </p>
                   <progress value={stat.base_stat} max={100}/>
-                  </div>
+                  </StatsPoke>
                 );
               })}
           </Status>
@@ -182,6 +188,9 @@ export default function DetailsPage() {
                 );
               })}
           </CardMoves>
+          <PokeType>
+
+          </PokeType>
         </CardDetalhe>
       </Main2>
     </Main>
