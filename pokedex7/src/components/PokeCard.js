@@ -63,7 +63,7 @@ ${({ color }) => {
         background-color: #BF9762;`
       case 'poison':
         return css`
-        background-color: #BF9762;`
+        background-color: #AF97BA;`
       case 'flying':
         return css`
         background-color: #95D1FC;`
@@ -245,7 +245,7 @@ ${({ color }) => {
         background-color: #BF9762;`
       case 'poison':
         return css`
-        background-color: #BF9762;`
+        background-color: #AF97BA;`
       case 'flying':
         return css`
         background-color: #95D1FC;`
@@ -555,8 +555,8 @@ export default function PokeCard({ name, image, id, types, captured, moves, imag
         </TopContainer>
         <BottomDiv>
           <ButtonDetalhes to="/details" color={color} onClick={() => getDetails(id, name, image, imageBack, imagePixel, stats, moves, types)}>Details</ButtonDetalhes>
-          {captured ? <ButtonExcluir onClick={() => onDelete(name, image, id, types)}>Soltar</ButtonExcluir> :
-            <ButtonCapturar onClick={() => onCapture(name, image, id, types, true)}>Capturar!</ButtonCapturar>}
+          {captured ? <ButtonExcluir onClick={() => onDelete(name, image, id, types)}>Release</ButtonExcluir> :
+            <ButtonCapturar onClick={() => onCapture(name, image, id, types, true)}>Capture!</ButtonCapturar>}
         </BottomDiv>
       </Container>
     </Main>

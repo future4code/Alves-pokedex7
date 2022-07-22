@@ -68,6 +68,12 @@ height: 613px;
 margin: 24px 0 24px 25px;
 background-color: white;
 border-radius: 8px;
+h2 {
+  padding: 10px 0 0 40px
+}
+progress {
+  padding: 10px 0 0 40px
+}
 `;
 
 const CardMoves = styled.div`
@@ -115,10 +121,6 @@ const FotoPoke = styled.div`
   margin: -110px 35px 525px 2084px;
 `;
 
-const Progress = styled.progress`
-
-`
-
 
 
 export default function DetailsPage() {
@@ -160,7 +162,7 @@ export default function DetailsPage() {
                     <strong>{stat.stat.name}: </strong>
                     {stat.base_stat}
                   </p>
-                  <Progress value={stat.base_stat} max={100}/>
+                  <progress value={stat.base_stat} max={100}/>
                   </div>
                 );
               })}
