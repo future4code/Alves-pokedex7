@@ -70,13 +70,17 @@ export default function GlobalState(props) {
 
     const [pokedex, setPokedex] = useState([])
 
-    const onCapture = (name, image, id, types, captured) => {
+    const onCapture = (id, name, image, imageBack, imageFront, stats, moves, types, captured) => {
         const ids = pokedex.map((item) => item.id)
         const body = {
-            name: name,
-            image: image,
             id: id,
-            type: types,
+            name: name,
+            imageBack: imageBack,
+            image: image,
+            imageFront: imageFront,
+            stats: stats,
+            moves: moves,
+            types: types,
             captured: captured
         }
         if (ids.includes(body.id) || pokedex.length >= 6) {
@@ -87,7 +91,6 @@ export default function GlobalState(props) {
         })
         setPokedex([...pokedex, body])
         setInfos(newPokemons)
-
     }
 
     const onDelete = (id) => {
@@ -99,13 +102,13 @@ export default function GlobalState(props) {
     }
 
     const [details, setDetails] = useState({})
-    const getDetails = (id, name, imgfront, imgback, imgpixel, stats, moves, types) => {
+    const getDetails = (id, name, image, imageBack, imageFront, stats, moves, types) => {
         const body = {
             id: id,
             name: name,
-            imgback: imgback,
-            imgfront: imgfront,
-            imgpixel: imgpixel,
+            imageBack: imageBack,
+            image: image,
+            imageFront: imageFront,
             stats: stats,
             moves: moves,
             types: types,

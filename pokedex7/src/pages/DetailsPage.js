@@ -149,13 +149,13 @@ export default function DetailsPage() {
           </IdPoke>
             <CardFotos>
               <FotoPoke>
-                <img src={details.imgfront}></img>
+                <img src={details.image}></img>
               </FotoPoke>
             <FotoFrente>
-            <img src={details.imgpixel}></img>
+            <img src={details.imageFront}></img>
             </FotoFrente>
             <FotoTras>
-              <img src={details.imgback}></img>
+              <img src={details.imageBack}></img>
             </FotoTras>
           </CardFotos>
           <Status>
