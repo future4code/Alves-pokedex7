@@ -27,8 +27,12 @@ export default function PokedexPage() {
           return <PokeCard
             name={item.name.toUpperCase()}
             image={item.image}
+            imageFront={item.imageFront}
+            imageBack={item.imageBack}
+            stats={item.stats}
+            moves={item.moves}
             id={item.id}
-            types={item.type}
+            types={item.types}
             captured={true}
           />
         })}
