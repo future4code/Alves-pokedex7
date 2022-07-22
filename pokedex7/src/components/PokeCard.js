@@ -554,10 +554,9 @@ export default function PokeCard({ name, image, id, types, captured, moves, imag
           <Image src={image} />
         </TopContainer>
         <BottomDiv>
-          <ButtonDetalhes to="/details" color={color} onClick={() => getDetails(id, name, image, imageBack, imageFront, stats, moves, types)}>Details</ButtonDetalhes>
           {captured ? <ButtonExcluir onClick={() => onDelete(id)}>Release</ButtonExcluir> :
             <ButtonCapturar onClick={() => onCapture(id, name, image, imageBack, imageFront, stats, moves, types, true)}>Capture!</ButtonCapturar>}
-          <ButtonDetalhes to="/details" color={color} onClick={() => getDetails(id, name, image, imageBack, imagePixel, stats, moves, types)}>Details</ButtonDetalhes>
+          <ButtonDetalhes to="/details" color={color} onClick={() => getDetails(id, name, image, imageBack, imageFront, stats, moves, types)}>Details</ButtonDetalhes>
         </BottomDiv>
       </Container>
     </Main>
