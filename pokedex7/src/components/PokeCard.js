@@ -118,7 +118,6 @@ align-items:center;
 @media (min-width: 365px) and (max-width: 763px){ 
   justify-content: center;
 }
-
 `
 
 const TopDiv = styled.div`
@@ -315,6 +314,7 @@ const TypeContainer = styled.div`
 display: flex;
 flex-direction: row;
 align-items: flex-start;
+border: 1px dashed white;
 padding: 5px 8px;
 gap: 10px;
 border-radius: 8px;
@@ -383,15 +383,16 @@ margin: 0;
 font-size: 0.8rem;
 font-weight:700;
 `
-export default function PokeCard({ name, image, id, types, captured, moves, imageBack, imageFront, stats }) {
+export default function PokeCard({ id, name, sprites, stats, moves, types, captured}) {
   const [color, setColor] = useState('')
   const [color2, setColor2] = useState('')
   const { onCapture, onDelete, getDetails, details, } = useContext(GlobalContext)
   const navigate = useNavigate()
 
+  const allTypes = types.map(item => item.type.name)
+  const type = allTypes[0]
+  const type2 = allTypes[1]
   useEffect(() => {
-    const type = types[0]
-    const type2 = types[1]
     if (type === 'grass') {
       setColor('grass')
     } else if (type === 'water') {
@@ -501,7 +502,7 @@ export default function PokeCard({ name, image, id, types, captured, moves, imag
                   {(color === 'psychic') ? <TypeImage src={TypePsychic} /> : null}
                   {(color === 'rock') ? <TypeImage src={TypeRock} /> : null}
                   {(color === 'steel') ? <TypeImage src={TypeSteel} /> : null}
-                  <TypeText>{types[0].toUpperCase()}</TypeText>
+                  <TypeText>{type.toUpperCase()}</TypeText>
                 </TypeContainer>
               </TypesDiv>
               :
@@ -525,7 +526,7 @@ export default function PokeCard({ name, image, id, types, captured, moves, imag
                   {(color === 'psychic') ? <TypeImage src={TypePsychic} /> : null}
                   {(color === 'rock') ? <TypeImage src={TypeRock} /> : null}
                   {(color === 'steel') ? <TypeImage src={TypeSteel} /> : null}
-                  <TypeText>{types[0].toUpperCase()}</TypeText>
+                  <TypeText>{type.toUpperCase()}</TypeText>
                 </TypeContainer>
                 <TypeContainer color={color2}>
                   {(color2 === 'grass') ? <TypeImage src={TypeGrass} /> : null}
@@ -546,17 +547,17 @@ export default function PokeCard({ name, image, id, types, captured, moves, imag
                   {(color2 === 'psychic') ? <TypeImage src={TypePsychic} /> : null}
                   {(color2 === 'rock') ? <TypeImage src={TypeRock} /> : null}
                   {(color2 === 'steel') ? <TypeImage src={TypeSteel} /> : null}
-                  <TypeText>{types[1].toUpperCase()}</TypeText>
+                  <TypeText>{type2.toUpperCase()}</TypeText>
                 </TypeContainer>
               </TypesDiv>
             }
           </TopDiv>
-          <Image src={image} />
+          <Image src={sprites.other["official-artwork"].front_default} />
         </TopContainer>
         <BottomDiv>
-          {captured ? <ButtonExcluir onClick={() => onDelete(id)}>Release</ButtonExcluir> :
-            <ButtonCapturar onClick={() => onCapture(id, name, image, imageBack, imageFront, stats, moves, types, true)}>Capture!</ButtonCapturar>}
-          <ButtonDetalhes to="/details" color={color} onClick={() => getDetails(id, name, image, imageBack, imageFront, stats, moves, types)}>Details</ButtonDetalhes>
+          {captured ? <ButtonExcluir onClick={() => onDelete(id, name, sprites, stats, moves, types, false)}>Release</ButtonExcluir> :
+            <ButtonCapturar onClick={() => onCapture(id, name, sprites, stats, moves, types, true)}>Capture!</ButtonCapturar>}
+          <ButtonDetalhes to="/details" color={color} onClick={() => getDetails(id, name, sprites, stats, moves, types, captured)}>Details</ButtonDetalhes>
         </BottomDiv>
       </Container>
     </Main>

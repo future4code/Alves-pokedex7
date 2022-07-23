@@ -18,20 +18,18 @@ padding-bottom: 100px;
 }
 `
 export default function PokedexPage() {
-  const {pokedex} = useContext(GlobalContext)
+  const { pokedex } = useContext(GlobalContext)
 
   return (
     <Main>
       {
         pokedex && pokedex.map((item) => {
           return <PokeCard
+            id={item.id}
             name={item.name.toUpperCase()}
-            image={item.image}
-            imageFront={item.imageFront}
-            imageBack={item.imageBack}
+            sprites={item.sprites}
             stats={item.stats}
             moves={item.moves}
-            id={item.id}
             types={item.types}
             captured={true}
           />

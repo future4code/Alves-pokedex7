@@ -19,11 +19,7 @@ padding-bottom: 100px;
 `
 
 export default function HomePage() {
-    const { infos, getPokemons, isLoading, currentUrl} = useContext(GlobalContext)
-    
-    useEffect(() => {
-        getPokemons(currentUrl)
-    }, [isLoading])
+    const { infos, getPokemons, isLoading, currentUrl } = useContext(GlobalContext)
 
     return (
         <div>
@@ -31,14 +27,13 @@ export default function HomePage() {
                 {isLoading ? <h1>Loading</h1> :
                     infos && infos.map((item) => {
                         return <PokeCard
-                            name={item.name.toUpperCase()}
-                            image={item.sprites.other["official-artwork"].front_default}
                             id={item.id}
-                            types={item.types.map((type) => type.type.name)}
-                            imageBack={item.sprites.back_default}
+                            name={item.name.toUpperCase()}
+                            sprites={item.sprites}
                             stats={item.stats}
                             moves={item.moves}
-                            imageFront={item.sprites.front_default}
+                            types={item.types}
+                            captured={false}
                         />
                     })}
 
