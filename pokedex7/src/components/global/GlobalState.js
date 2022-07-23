@@ -32,7 +32,6 @@ export default function GlobalState(props) {
                 types: tempResp.data.types,
             }
             newArr.push(body)
-            console.log(tempResp.data)
         }
         await setInfos(newArr)
         await setIsLoading(false)
@@ -82,6 +81,8 @@ export default function GlobalState(props) {
 
 
     const [pokedex, setPokedex] = useState([])
+    const [success, setSuccess] = useState(false)
+    const [deleteSuccess, setDeleteSuccess] = useState(false)
 
     const onCapture = (id, name, sprites, stats, moves, types, captured) => {
         const ids = pokedex.map((item) => item.id)
@@ -94,6 +95,7 @@ export default function GlobalState(props) {
             types: types,
             captured: captured
         }
+
         if (ids.includes(body.id) || pokedex.length >= 6) {
             return
         }
@@ -102,6 +104,7 @@ export default function GlobalState(props) {
         })
         setPokedex([...pokedex, body])
         setInfos(newPokemons)
+        setSuccess(true)
     }
 
     const onDelete = (id, name, sprites, stats, moves, types, captured) => {
@@ -122,6 +125,7 @@ export default function GlobalState(props) {
         tempArray.push(body)
         tempArray.sort((a, b) => a.id - b.id)
         setInfos(tempArray)
+        setDeleteSuccess(true)
     }
 
     const [details, setDetails] = useState({})
@@ -140,8 +144,8 @@ export default function GlobalState(props) {
         setOnDetails(true)
         setOnHome(false)
         setOnPokedex(false)
+        // localStorage.setItem('details', JSON.stringify(body))
     }
-
 
     useEffect(() => {
         getPokemons(currentUrl)
@@ -172,7 +176,12 @@ export default function GlobalState(props) {
         onPokedex,
         setOnPokedex,
         onDetails,
-        setOnDetails
+        setOnDetails,
+        success,
+        setSuccess,
+        deleteSuccess,
+        setDeleteSuccess,
+        setDetails
     }
     return (<Provider value={values}>{props.children}</Provider>)
 }

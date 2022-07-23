@@ -23,6 +23,8 @@ import { useNavigate } from 'react-router-dom'
 import { goToDetailsPage } from '../routes/coordinator'
 import { BASE_URL } from '../constants/urls'
 import { Link } from 'react-router-dom'
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 
 const Main = styled.div`
@@ -169,10 +171,10 @@ border-radius: 8px;
 border: 0px;
 position: absolute;
 margin-left: 275px;
-font-weight: 700;
 font-size: 1rem;
 font-family: 'Poppins';
 opacity: 0.9;
+color:black;
 :hover { 
   cursor: pointer;
   opacity: 1;
@@ -183,6 +185,7 @@ opacity: 0.9;
 `
 
 const ButtonExcluir = styled.button`
+color: white;
 display: flex;
 flex-direction: row;
 justify-content: center;
@@ -195,7 +198,6 @@ border-radius: 8px;
 border: 0px;
 position: absolute;
 margin-left: 275px;
-font-weight: 700;
 font-size: 1rem;
 font-family: 'Poppins';
 opacity: 0.8;
@@ -209,7 +211,7 @@ opacity: 0.8;
 `
 
 const ButtonDetalhes = styled(Link)`
-width: 74px;
+width: 100px;
 height: 24px;
 font-weight: 700;
 line-height: 24px;
@@ -302,6 +304,7 @@ const NameText = styled.h2`
 margin: 0;
 font-size: 1.6rem;
 padding-left: 20px;
+font-weight: 700;
 `
 
 const TypesDiv = styled.div`
@@ -381,7 +384,6 @@ ${({ color }) => {
 const TypeText = styled.p`
 margin: 0;
 font-size: 0.8rem;
-font-weight:700;
 `
 export default function PokeCard({ id, name, sprites, stats, moves, types, captured}) {
   const [color, setColor] = useState('')
@@ -502,7 +504,7 @@ export default function PokeCard({ id, name, sprites, stats, moves, types, captu
                   {(color === 'psychic') ? <TypeImage src={TypePsychic} /> : null}
                   {(color === 'rock') ? <TypeImage src={TypeRock} /> : null}
                   {(color === 'steel') ? <TypeImage src={TypeSteel} /> : null}
-                  <TypeText>{type.toUpperCase()}</TypeText>
+                  <TypeText>{type.charAt(0).toUpperCase() + type.slice(1)}</TypeText>
                 </TypeContainer>
               </TypesDiv>
               :
@@ -526,7 +528,7 @@ export default function PokeCard({ id, name, sprites, stats, moves, types, captu
                   {(color === 'psychic') ? <TypeImage src={TypePsychic} /> : null}
                   {(color === 'rock') ? <TypeImage src={TypeRock} /> : null}
                   {(color === 'steel') ? <TypeImage src={TypeSteel} /> : null}
-                  <TypeText>{type.toUpperCase()}</TypeText>
+                  <TypeText>{type.charAt(0).toUpperCase() + type.slice(1)}</TypeText>
                 </TypeContainer>
                 <TypeContainer color={color2}>
                   {(color2 === 'grass') ? <TypeImage src={TypeGrass} /> : null}
@@ -547,7 +549,7 @@ export default function PokeCard({ id, name, sprites, stats, moves, types, captu
                   {(color2 === 'psychic') ? <TypeImage src={TypePsychic} /> : null}
                   {(color2 === 'rock') ? <TypeImage src={TypeRock} /> : null}
                   {(color2 === 'steel') ? <TypeImage src={TypeSteel} /> : null}
-                  <TypeText>{type2.toUpperCase()}</TypeText>
+                  <TypeText>{type2.charAt(0).toUpperCase() + type2.slice(1)}</TypeText>
                 </TypeContainer>
               </TypesDiv>
             }
@@ -555,9 +557,9 @@ export default function PokeCard({ id, name, sprites, stats, moves, types, captu
           <Image src={sprites.other["official-artwork"].front_default} />
         </TopContainer>
         <BottomDiv>
-          {captured ? <ButtonExcluir onClick={() => onDelete(id, name, sprites, stats, moves, types, false)}>Release</ButtonExcluir> :
-            <ButtonCapturar onClick={() => onCapture(id, name, sprites, stats, moves, types, true)}>Capture!</ButtonCapturar>}
-          <ButtonDetalhes to="/details" color={color} onClick={() => getDetails(id, name, sprites, stats, moves, types, captured)}>Details</ButtonDetalhes>
+          {captured ? <ButtonExcluir onClick={() => onDelete(id, name, sprites, stats, moves, types, false)}>Excluir</ButtonExcluir> :
+            <ButtonCapturar onClick={() => onCapture(id, name, sprites, stats, moves, types, true)}>Capturar!</ButtonCapturar>}
+          <ButtonDetalhes to="/details" color={color} onClick={() => getDetails(id, name, sprites, stats, moves, types, captured)}>Detalhes</ButtonDetalhes>
         </BottomDiv>
       </Container>
     </Main>
