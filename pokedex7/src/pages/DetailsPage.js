@@ -424,6 +424,7 @@ export default function DetailsPage() {
   })
   const statsValues = details.stats.map(item => item.base_stat)
   const sum = statsValues.reduce((partialSum, a) => partialSum + a, 0)
+
   return (
     <Main>
       <Title>Detalhes</Title>
@@ -481,10 +482,15 @@ export default function DetailsPage() {
             <h2>Moves</h2>
             {details &&
               details.moves.map((move, index) => {
+                const moveName = move.move.name
+                const words = moveName.replace('-', ' ').split(" ")
+                for (let i = 0; i < words.length; i++) {
+                  words[i] = words[i][0].toUpperCase() + words[i].substr(1) + " ";
+                }
                 return (
                   index < 5 && (
                     <ul>
-                      <li>{move.move.name.charAt(0).toUpperCase() + move.move.name.slice(1).replace('-', ' ')}</li>
+                      <li>{words}</li>
                     </ul>
                   )
                 );
