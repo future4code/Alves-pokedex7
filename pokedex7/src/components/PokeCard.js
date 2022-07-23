@@ -314,7 +314,7 @@ const TypeContainer = styled.div`
 display: flex;
 flex-direction: row;
 align-items: flex-start;
-border: 1px dashed white;
+border: 1px dashed rgba(255, 255, 255, 0.47);
 padding: 5px 8px;
 gap: 10px;
 border-radius: 8px;

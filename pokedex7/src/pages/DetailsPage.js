@@ -228,7 +228,7 @@ display: flex;
 flex-direction: row;
 align-items: flex-start;
 padding: 5px 8px;
-border: 1px dashed white;
+border: 1px dashed rgba(255, 255, 255, 0.47);
 gap: 10px;
 border-radius: 8px;
 background-color: #729F92;
