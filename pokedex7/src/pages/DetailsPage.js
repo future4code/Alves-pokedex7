@@ -19,9 +19,13 @@ import TypeDragon from '../img/dragon.png'
 import TypeFairy from '../img/fairy.png'
 import TypeElectric from '../img/electric.png'
 import { GlobalContext } from "../components/global/GlobalContext";
+import { Progress } from '@chakra-ui/react'
 
 const Main = styled.div`
 color: black;
+min-height: 101vh;
+font-family: 'Poppins';
+background: #5E5E5E;
 `
 
 const Title = styled.h2`
@@ -31,8 +35,7 @@ font-style: normal;
 font-weight: 700;
 font-size: 48px;
 line-height: 72px; 
-margin-left: 260px;
-margin-top: 60px;
+padding: 60px 0px 30px 260px;
 `
 
 const Main2 = styled.div`
@@ -43,6 +46,7 @@ const Main2 = styled.div`
 `;
 
 const CardDetalhe = styled.div`
+font-family: 'Poppins';
   display: flex;
   align-items: center;
   width: 1389.14px;
@@ -158,6 +162,7 @@ border-radius: 8px;
 h2 {
   padding: 10px 0 0 40px;
   font-size: 2rem;
+  font-weight: 700;
 }
 `
 
@@ -184,6 +189,8 @@ border-radius: 12px;
 h2 {
   padding: 20px;
   margin: 0;
+  font-weight: 700;
+  font-size: 24px;
 }
 `;
 
@@ -192,14 +199,21 @@ const NamePoke = styled.div`
   position: absolute;
   margin: 39px 380.14px 566px 771px;
   color: white;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 58px;
 `;
 
 const IdPoke = styled.div` 
   display: flex;
   position: absolute;
-  font-size: 14px;
   margin: 24px 585.14px 620px 774px;
   color: white;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
 `;
 
 const FotoPoke = styled.div`
@@ -293,8 +307,8 @@ ${({ color }) => {
 `
 const TypeText = styled.p`
 margin: 0;
-font-size: 0.8rem;
-font-weight:700;
+font-size: 14px;
+color: white;
 `
 const TypeImage = styled.img`
 width: 18px;
@@ -335,14 +349,9 @@ const BaseStat = styled.p`
 margin: 3px;
 `
 export default function DetailsPage() {
-  const { details } = useContext(GlobalContext)
+  const { details, setDetails } = useContext(GlobalContext)
   const [color, setColor] = useState('')
   const [color2, setColor2] = useState('')
-
-  console.log(details.types)
-  const allTypes = details.types.map(item => item.type.name)
-  const type = allTypes[0]
-  const type2 = allTypes[1]
 
   useEffect(() => {
     if (type === 'grass') {
@@ -383,7 +392,6 @@ export default function DetailsPage() {
       setColor('steel')
     }
 
-
     if (type2 === 'grass') {
       setColor2('grass')
     } else if (type2 === 'water') {
@@ -421,9 +429,12 @@ export default function DetailsPage() {
     } else if (type2 === 'steel') {
       setColor2('steel')
     }
-  })
+  }, [])
   const statsValues = details.stats.map(item => item.base_stat)
   const sum = statsValues.reduce((partialSum, a) => partialSum + a, 0)
+  const allTypes = details.types.map(item => item.type.name)
+  const type = allTypes[0]
+  const type2 = allTypes[1]
 
   return (
     <Main>
@@ -518,7 +529,7 @@ export default function DetailsPage() {
                   {(color === 'psychic') ? <TypeImage src={TypePsychic} /> : null}
                   {(color === 'rock') ? <TypeImage src={TypeRock} /> : null}
                   {(color === 'steel') ? <TypeImage src={TypeSteel} /> : null}
-                  <TypeText>{type.toUpperCase()}</TypeText>
+                  <TypeText>{type.charAt(0).toUpperCase() + type.slice(1)}</TypeText>
                 </TypeContainer>
               </TypesDiv>
               :
@@ -542,7 +553,7 @@ export default function DetailsPage() {
                   {(color === 'psychic') ? <TypeImage src={TypePsychic} /> : null}
                   {(color === 'rock') ? <TypeImage src={TypeRock} /> : null}
                   {(color === 'steel') ? <TypeImage src={TypeSteel} /> : null}
-                  <TypeText>{type.toUpperCase()}</TypeText>
+                  <TypeText>{type.charAt(0).toUpperCase() + type.slice(1)}</TypeText>
                 </TypeContainer>
                 <TypeContainer color={color2}>
                   {(color2 === 'grass') ? <TypeImage src={TypeGrass} /> : null}
@@ -563,7 +574,7 @@ export default function DetailsPage() {
                   {(color2 === 'psychic') ? <TypeImage src={TypePsychic} /> : null}
                   {(color2 === 'rock') ? <TypeImage src={TypeRock} /> : null}
                   {(color2 === 'steel') ? <TypeImage src={TypeSteel} /> : null}
-                  <TypeText>{type2.toUpperCase()}</TypeText>
+                  <TypeText>{type2.charAt(0).toUpperCase() + type2.slice(1)}</TypeText>
                 </TypeContainer>
               </TypesDiv>
             }
