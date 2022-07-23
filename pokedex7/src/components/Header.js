@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import styled from 'styled-components'
 import Title from '../img/header.png'
 import { useNavigate } from 'react-router-dom'
 import { goToDetailsPage, goToHomePage, goToPokedexPage } from '../routes/coordinator'
 import { Link } from 'react-router-dom'
+import { GlobalContext } from './global/GlobalContext'
 
 const Main = styled.div`
 display: grid;
@@ -62,25 +63,29 @@ opacity: 0.9;
 `
 
 export default function Header() {
-  const [onHome, setOnHome] = useState(true)
+  const { onHome, setOnHome, onPokedex, setOnPokedex, onDetails, setOnDetails } = useContext(GlobalContext)
+  
   const navigate = useNavigate()
   const goToPokedex = () => {
     setOnHome(false)
+    setOnPokedex(true)
     goToPokedexPage(navigate)
   }
 
-  const returnHome = () => {
+  const goToHome = () => {
+    setOnPokedex(false)
     setOnHome(true)
+    setOnDetails(false)
     goToHomePage(navigate)
   }
+
   return (
     <Main>
       <div></div>
       <ImageHeader src={Title} onClick={() => goToHomePage(navigate)}/>
-      {onHome ? 
-        <PokedexButton onClick={goToPokedex}>Pokedéx</PokedexButton> :
-        <PokedexButton onClick={returnHome}>Home</PokedexButton>
-      }
+      {onHome && <PokedexButton onClick={goToPokedex}>Pokedex</PokedexButton>}
+      {onPokedex && <PokedexButton onClick={goToHome}>Home</PokedexButton>}
+      {onDetails && <PokedexButton onClick={goToHome}>Home</PokedexButton>}
     </Main>
   )
 }

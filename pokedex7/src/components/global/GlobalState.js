@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { BASE_URL } from '../../constants/urls'
 import axios from 'axios'
 import { GlobalContext } from './GlobalContext'
@@ -11,6 +11,9 @@ export default function GlobalState(props) {
     const [nextUrl, setNextUrl] = useState("https://pokeapi.co/api/v2/pokemon?offset=20&limit=20")
     const [currentUrl, setCurrentUrl] = useState('https://pokeapi.co/api/v2/pokemon')
     const [previousUrl, setPreviousUrl] = useState(null)
+    const [onHome, setOnHome] = useState(true)
+    const [onPokedex, setOnPokedex] = useState(false)
+    const [onDetails, setOnDetails] = useState(false)
 
     const getPokemons = async (url) => {
         const resp = await axios.get(url)
@@ -20,11 +23,20 @@ export default function GlobalState(props) {
                 return;
             }
             const tempResp = await axios.get(resp.data.results[i].url)
-            newArr.push(tempResp.data)
-        } 
+            const body = {
+                id: tempResp.data.id,
+                name: tempResp.data.name,
+                sprites: tempResp.data.sprites,
+                stats: tempResp.data.stats,
+                moves: tempResp.data.moves.slice(0, 4),
+                types: tempResp.data.types,
+            }
+            newArr.push(body)
+            console.log(tempResp.data)
+        }
         await setInfos(newArr)
         await setIsLoading(false)
-        
+
     }
 
     const nextPage = async (url) => {
@@ -39,6 +51,7 @@ export default function GlobalState(props) {
         for (let i = 0; i < resp.data.results.length; i++) {
             const tempResp = await axios.get(resp.data.results[i].url)
             newArr.push(tempResp.data)
+
         }
         const filterResp = newArr.filter((item) => {
             return !idsPokedex.includes(item.id)
@@ -70,14 +83,12 @@ export default function GlobalState(props) {
 
     const [pokedex, setPokedex] = useState([])
 
-    const onCapture = (id, name, image, imageBack, imageFront, stats, moves, types, captured) => {
+    const onCapture = (id, name, sprites, stats, moves, types, captured) => {
         const ids = pokedex.map((item) => item.id)
         const body = {
             id: id,
             name: name,
-            imageBack: imageBack,
-            image: image,
-            imageFront: imageFront,
+            sprites: sprites,
             stats: stats,
             moves: moves,
             types: types,
@@ -93,29 +104,48 @@ export default function GlobalState(props) {
         setInfos(newPokemons)
     }
 
-    const onDelete = (id) => {
-        const newPokedex = pokedex.filter((item) => {
-            return item.id != id
-        })
-        console.log(newPokedex, infos)
-        setPokedex(newPokedex)
-    }
-
-    const [details, setDetails] = useState({})
-    const getDetails = (id, name, image, imageBack, imageFront, stats, moves, types) => {
+    const onDelete = (id, name, sprites, stats, moves, types, captured) => {
+        const tempArray = infos
         const body = {
             id: id,
             name: name,
-            imageBack: imageBack,
-            image: image,
-            imageFront: imageFront,
+            sprites: sprites,
             stats: stats,
             moves: moves,
             types: types,
+            captured: captured
+        }
+        const newPokedex = pokedex.filter((item) => {
+            return item.id != id
+        })
+        setPokedex(newPokedex)
+        tempArray.push(body)
+        tempArray.sort((a, b) => a.id - b.id)
+        setInfos(tempArray)
+    }
+
+    const [details, setDetails] = useState({})
+    const getDetails = (id, name, sprites, stats, moves, types, captured, color) => {
+        const body = {
+            id: id,
+            name: name,
+            sprites: sprites,
+            stats: stats,
+            moves: moves,
+            types: types,
+            captured: captured,
+            color: color
         }
         setDetails(body)
+        setOnDetails(true)
+        setOnHome(false)
+        setOnPokedex(false)
     }
-    
+
+
+    useEffect(() => {
+        getPokemons(currentUrl)
+    }, [isLoading])
 
     const Provider = GlobalContext.Provider;
 
@@ -136,7 +166,13 @@ export default function GlobalState(props) {
         previousPage,
         previousUrl,
         currentUrl,
-        setCurrentUrl
+        setCurrentUrl,
+        onHome,
+        setOnHome,
+        onPokedex,
+        setOnPokedex,
+        onDetails,
+        setOnDetails
     }
     return (<Provider value={values}>{props.children}</Provider>)
 }
