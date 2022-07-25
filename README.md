@@ -4,7 +4,7 @@
 
 https://decisive-chance.surge.sh/
 
-O projeto é um site que conecta o usuário à uma lista de pokemons vinda da API, podendo armazenar os Pokemons em uma Pokedex clicando em cada pokemon escolhido. O usuário também consegue acessar uma página de detalhes onde as caracteristicas e detalhes do pokemon é exibido.
+O projeto é um site que conecta o usuário à uma lista de Pokémons vinda da API, podendo armazenar os Pokémons em uma Pokedex clicando em cada Pokémon escolhido. O usuário também consegue acessar uma página de detalhes onde as caracteristicas e detalhes do Pokémon é exibido.
 
 
 ![tela1](https://user-images.githubusercontent.com/104855401/180684701-f2f6914a-ea33-4db1-9c2c-a1a35019459e.png)
@@ -39,4 +39,4 @@ O que funciona:
 - Página de detalhes
 
 O que não funciona: 
-- Nada
+- Responsividade
