@@ -37,6 +37,7 @@ O que funciona:
 - Home
 - Pokedex
 - Página de detalhes
+- Desafio
 
 O que não funciona: 
 - Responsividade
