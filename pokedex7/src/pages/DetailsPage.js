@@ -341,13 +341,6 @@ progress {
 }
 `
 
-const TotalStats = styled.p`
-margin-right: 170px;
-margin-bottom: 50px;
-`
-const BaseStat = styled.p`
-margin: 3px;
-`
 export default function DetailsPage() {
   const { details, setDetails } = useContext(GlobalContext)
   const [color, setColor] = useState('')
@@ -442,7 +435,7 @@ export default function DetailsPage() {
       <Main2>
         <CardDetalhe color={color}>
           <NamePoke>
-            <h2>{details.name}</h2>
+            <h2>{details.name.charAt(0).toUpperCase() + details.name.slice(1)}</h2>
           </NamePoke>
           <IdPoke>
             <h2>#{details.id}</h2>

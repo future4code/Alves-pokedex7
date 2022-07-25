@@ -20,11 +20,9 @@ import TypeFairy from '../img/fairy.png'
 import TypeElectric from '../img/electric.png'
 import { GlobalContext } from './global/GlobalContext'
 import { useNavigate } from 'react-router-dom'
-import { goToDetailsPage } from '../routes/coordinator'
-import { BASE_URL } from '../constants/urls'
 import { Link } from 'react-router-dom'
-import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
+
 
 
 const Main = styled.div`
@@ -151,13 +149,6 @@ margin-bottom: 105px;
 }
 `
 
-const Image2 = styled.img`
-width: 210.73px;
-height: 210.73px;
-position: absolute;
-margin-left:232px;
-margin-top:2px;
-`
 const ButtonCapturar = styled.button`
 display: flex;
 flex-direction: row;
@@ -385,15 +376,16 @@ const TypeText = styled.p`
 margin: 0;
 font-size: 0.8rem;
 `
-export default function PokeCard({ id, name, sprites, stats, moves, types, captured}) {
+export default function PokeCard({ id, name, sprites, stats, moves, types, captured }) {
   const [color, setColor] = useState('')
   const [color2, setColor2] = useState('')
-  const { onCapture, onDelete, getDetails, details, } = useContext(GlobalContext)
+  const { onCapture, onDelete, getDetails, battle } = useContext(GlobalContext)
   const navigate = useNavigate()
 
   const allTypes = types.map(item => item.type.name)
   const type = allTypes[0]
   const type2 = allTypes[1]
+
   useEffect(() => {
     if (type === 'grass') {
       setColor('grass')
@@ -475,14 +467,13 @@ export default function PokeCard({ id, name, sprites, stats, moves, types, captu
 
 
 
-
   return (
     <Main>
       <Container color={color}>
         <TopContainer>
           <TopDiv>
             <IdText>#{id}</IdText>
-            <NameText>{name}</NameText>
+            <NameText>{name.charAt(0).toUpperCase() + name.slice(1)}</NameText>
             {types.length === 1 ?
               <TypesDiv>
                 <TypeContainer color={color}>
@@ -556,11 +547,13 @@ export default function PokeCard({ id, name, sprites, stats, moves, types, captu
           </TopDiv>
           <Image src={sprites.other["official-artwork"].front_default} />
         </TopContainer>
-        <BottomDiv>
+        {!battle &&  <BottomDiv>
           {captured ? <ButtonExcluir onClick={() => onDelete(id, name, sprites, stats, moves, types, false)}>Excluir</ButtonExcluir> :
             <ButtonCapturar onClick={() => onCapture(id, name, sprites, stats, moves, types, true)}>Capturar!</ButtonCapturar>}
           <ButtonDetalhes to="/details" color={color} onClick={() => getDetails(id, name, sprites, stats, moves, types, captured)}>Detalhes</ButtonDetalhes>
         </BottomDiv>
+        }
+        
       </Container>
     </Main>
   )
