@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { BASE_URL } from '../../constants/urls'
 import axios from 'axios'
 import { GlobalContext } from './GlobalContext'
-import { filter } from '@chakra-ui/react'
+
 
 
 export default function GlobalState(props) {
@@ -14,6 +13,9 @@ export default function GlobalState(props) {
     const [onHome, setOnHome] = useState(true)
     const [onPokedex, setOnPokedex] = useState(false)
     const [onDetails, setOnDetails] = useState(false)
+    const [compareArray, setCompareArray] = useState([])
+    const [battle, setBattle] = useState(false)
+    const [winAlert, setWinAlert] = useState(false)
 
     const getPokemons = async (url) => {
         const resp = await axios.get(url)
@@ -144,7 +146,6 @@ export default function GlobalState(props) {
         setOnDetails(true)
         setOnHome(false)
         setOnPokedex(false)
-        // localStorage.setItem('details', JSON.stringify(body))
     }
 
     useEffect(() => {
@@ -181,7 +182,13 @@ export default function GlobalState(props) {
         setSuccess,
         deleteSuccess,
         setDeleteSuccess,
-        setDetails
+        setDetails,
+        compareArray,
+        setCompareArray,
+        battle,
+        setBattle,
+        winAlert,
+        setWinAlert
     }
     return (<Provider value={values}>{props.children}</Provider>)
 }

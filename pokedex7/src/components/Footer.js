@@ -9,6 +9,7 @@ gap: 5%;
 padding: 15px;
 background-color: white;
 justify-content: center;
+padding-bottom: 50px;
 `
 
 const Container = styled.div`
@@ -65,8 +66,8 @@ export default function Footer() {
     return (
         <Main>
             <Container>
-                <PreviousButton onClick={() => previousPage(previousUrl)}>Previous</PreviousButton>
-                <NextButton onClick={() => nextPage(nextUrl)}>Next</NextButton>
+                <PreviousButton onClick={() => previousPage(previousUrl)}>Anterior</PreviousButton>
+                <NextButton onClick={() => nextPage(nextUrl)}>Próxima</NextButton>
             </Container>
         </Main>
     )

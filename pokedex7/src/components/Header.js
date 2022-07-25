@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import Title from '../img/header.png'
 import { useNavigate } from 'react-router-dom'
 import { goToDetailsPage, goToHomePage, goToPokedexPage } from '../routes/coordinator'
-import { Link } from 'react-router-dom'
 import { GlobalContext } from './global/GlobalContext'
 import BackArrow from '../img/Vector.png'
 import CapturedAlert from './CapturedAlert'
@@ -12,7 +11,7 @@ import DeleteAlert from './DeleteAlert'
 const Main = styled.div`
 font-family: 'Poppins';
 display: grid;
-grid-template-columns: 300px 300px 280px;
+grid-template-columns: 270px 300px 280px;
 width: 100%;
 height: 10vh;
 align-items: center;
@@ -126,9 +125,7 @@ export default function Header() {
     goToHomePage(navigate)
   }
 
-  console.log(details, pokedex)
   const idsPokedex = pokedex.map((item) => item.id)
-  console.log(idsPokedex)
 
   const goBack = () => {
     if (idsPokedex.includes(details.id) === true && onDetails) {

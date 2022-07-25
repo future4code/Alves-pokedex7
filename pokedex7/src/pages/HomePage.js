@@ -4,6 +4,7 @@ import { GlobalContext } from '../components/global/GlobalContext'
 import PokeCard from '../components/PokeCard'
 import Footer from '../components/Footer'
 import CapturedAlert from '../components/CapturedAlert'
+import { Spinner } from '@chakra-ui/react'
 
 const Container = styled.div`
 font-family: 'Poppins';
@@ -40,11 +41,11 @@ export default function HomePage() {
             <Title>Todos Pokémons</Title>
             {success && <CapturedAlert isOpen={success}></CapturedAlert>}
             <Container>
-                {isLoading ? <h1>Loading</h1> :
+                {isLoading ? <Spinner size={'xl'}></Spinner> :
                     infos && infos.map((item) => {
                         return <PokeCard
                             id={item.id}
-                            name={item.name.toUpperCase()}
+                            name={item.name}
                             sprites={item.sprites}
                             stats={item.stats}
                             moves={item.moves}
